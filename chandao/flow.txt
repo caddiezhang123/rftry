@@ -1,0 +1,20 @@
+*** Settings ***
+Resource          loginel.txt
+Resource          pages.txt
+Resource          houtaiel.txt
+
+*** Keywords ***
+登录流程
+    [Arguments]    ${user}    ${pwd}
+    登录页    ${user}    ${pwd}
+
+后台检验流程
+    进入后台页
+    后台页
+
+addbug流程
+    [Arguments]    ${product}    ${module}    ${build}    ${type}    ${os}    ${browser}
+    ...    ${title}    ${severity}    ${priority}    ${steps}
+    打开addbug页面
+    addbug    ${product}    ${module}    ${build}    ${type}    ${os}    ${browser}
+    ...    ${title}    ${severity}    ${priority}    ${steps}

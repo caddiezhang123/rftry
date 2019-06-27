@@ -1,0 +1,32 @@
+*** Settings ***
+Resource          loginel.txt
+Resource          houtaiel.txt
+Resource          addbug.txt
+
+*** Keywords ***
+登录页
+    [Arguments]    ${user}    ${pwd}
+    输入用户名    ${user}
+    输入密码    ${pwd}
+    点击登录
+
+后台页
+    检验header的值
+    检验aboutcd值
+    检验aboutmenu
+    检验menu值
+
+addbug
+    [Arguments]    ${product}    ${module}    ${build}    ${type}    ${os}    ${browser}
+    ...    ${title}    ${severity}    ${priority}    ${steps}
+    选择所属产品    ${product}
+    选择所属模块    ${module}
+    选择影响版本    ${build}
+    选择bug类型    ${type}
+    选择os    ${os}
+    选择浏览器    ${browser}
+    输入bug标题    ${title}
+    选择严重度    ${severity}
+    选择优先级    ${priority}
+    输入steps    ${steps}
+    保存

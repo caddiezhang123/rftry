@@ -1,0 +1,39 @@
+*** Settings ***
+Test Setup        打开浏览器
+Test Teardown     关闭浏览器
+Library           Selenium2Library
+Resource          flow.txt
+Resource          loginel.txt
+Resource          addbug.txt
+
+*** Test Cases ***
+login
+    ${user}    Set Variable    admin
+    登录流程    ${user}    123456
+    sleep    5
+    检验登录成功    ${user}
+
+login2
+    ${user}    Set Variable    admin
+    登录流程    ${user}    1234
+    sleep    5
+    检验登录失败
+
+后台检验
+    登录流程    admin    123456
+    sleep    2
+    后台检验流程
+    sleep    2
+
+try
+    登录流程    admin    123456
+    打开addbug页面
+    选择bug类型    界面优化
+    sleep    5
+
+add bug
+    登录流程    admin    123456
+    sleep    2
+    addbug流程    xpath=//*[@id='product_chosen']//li[text()='selenium1']    xpath=//*[@id='module_chosen']//li[text()='/smartcard']    xpath=//*[@id='openedBuild_chosen']//li[text()='release19.3']    界面优化    unix    chrome
+    ...    [releaser]AD user cannot login    xpath=//*[@id='severity']//preceding-sibling::ul/li[4]    xpath=//*[@id='pri']//preceding-sibling::ul/li[3]    [步骤]1.install cdc and join domian; [结果]2.login as AD user [期望结果]Fail to login Succeed to login
+    sleep    2

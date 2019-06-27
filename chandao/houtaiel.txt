@@ -1,0 +1,29 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Keywords ***
+检验header的值
+    ${getval}    get text    class=heading
+    Should Contain    ${getval}    当前系统的版本是9.0.1，您可以访问以下链接：
+
+检验aboutcd值
+    ${getval}    get text    xpath=//*[text()='关于禅道']
+    Should Contain    ${getval}    关于禅道
+
+检验menu值
+    ${n}    Get Element Count    xpath=//*[@id='modulemenu']//li
+    @{list}    create list    首页    插件    发信    自定义    计划任务
+    ...    备份    二次开发    安全    然之集成    回收站
+    :FOR    ${i}    IN RANGE    ${n}
+    \    ${getval}    get text    xpath=//*[@id='modulemenu']//li[${i}+1]
+    \    Should Contain    ${getval}    @{list}[${i}]
+
+检验aboutmenu
+    ${n}    Get Element Count    xpath=//*[@class='card card-about']//li
+    @{list}    create list    升级专业版本    官方网站    版本历史    授权协议    插件平台
+    :FOR    ${i}    IN RANGE    ${n}
+    \    ${getval}    get text    xpath=//*[@class='card card-about']//li[${i}+1]
+    \    Should Contain    ${getval}    @{list}[${i}]
+
+进入后台页
+    Click Element    link=后台

@@ -1,0 +1,60 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Keywords ***
+打开addbug页面
+    Click Element    link=测试
+    Click Element    link=Bug
+    Wait Until Page Contains Element    xpath=//*[@id='createActionMenu']/a
+    Click Element    xpath=//*[@id='createActionMenu']/a
+
+选择所属产品
+    [Arguments]    ${production}
+    Click Element    xpath=//*[@id='product_chosen']/a
+    Click Element    ${production}
+
+选择所属模块
+    [Arguments]    ${module}
+    Click Element    xpath=//*[@id='module_chosen']//span
+    sleep    1
+    Click Element    ${module}
+
+选择影响版本
+    [Arguments]    ${version}
+    Click Element    xpath=//*[@id='openedBuild_chosen']
+    click Element    ${version}
+
+选择bug类型
+    [Arguments]    ${type}
+    Select From List By Label    type    ${type}
+
+选择os
+    [Arguments]    ${os}
+    Select From List    os    ${os}
+
+选择浏览器
+    [Arguments]    ${chrome}
+    Select From List    browser    ${chrome}
+
+输入bug标题
+    [Arguments]    ${title}
+    input text    id=title    ${title}
+
+选择严重度
+    [Arguments]    ${severity}
+    Click Element    xpath=//*[@id='severity']//preceding-sibling::button
+    Click Element    ${severity}
+
+选择优先级
+    [Arguments]    ${priority}
+    Click Element    xpath=//*[@id='pri']//preceding-sibling::button
+    Click Element    ${priority}
+
+输入steps
+    [Arguments]    ${steps}
+    select frame    class=ke-edit-iframe
+    input text    xpath=//*[@class='article-content']     ${steps}
+    Unselect Frame
+
+保存
+    Click Button    id=submit
